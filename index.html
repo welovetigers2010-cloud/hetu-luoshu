@@ -102,6 +102,45 @@ footer .fine{display:block;font-size:10px;letter-spacing:1px;opacity:.75;margin-
 #toast.show{opacity:1;transform:translate(-50%,0)}
 .spark{position:fixed;width:7px;height:7px;border-radius:50%;pointer-events:none;z-index:70;animation:fall 1s forwards}
 @keyframes fall{to{transform:translateY(46vh) rotate(540deg);opacity:0}}
+
+/* ============ 飞星章 ============ */
+.en-cap{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;letter-spacing:4px;color:var(--gold);text-align:center}
+.sec-big{text-align:center;font-size:22px;font-weight:600;letter-spacing:4px;margin:6px 0 10px}
+.sub-lead{font-family:'Noto Sans SC',sans-serif;font-size:13px;color:var(--ink2);line-height:2.1;text-align:center;max-width:560px;margin:0 auto}
+.sub-lead b{color:var(--cinnabar)}
+.card-t{font-size:16px;font-weight:600;letter-spacing:3px;text-align:center;margin-bottom:8px}
+.fineprint{font-family:'Noto Sans SC',sans-serif;font-size:10.5px;color:var(--muted);text-align:center;letter-spacing:1px;margin-top:14px}
+.play-actions{display:flex;gap:14px;justify-content:center;margin-top:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.winlab{display:none;text-align:center;margin-top:14px;font-size:13.5px;letter-spacing:2px;color:var(--cinnabar);font-weight:700}
+.winlab.on{display:block;animation:fade .4s}
+
+.xgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:420px;margin:0 auto;padding:0 10px}
+.xcell{position:relative;border:1px solid var(--hair);background:rgba(255,255,255,.5);border-radius:10px;padding:12px 4px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.xcell:active{transform:scale(.97)}
+.xcell.center5{background:rgba(166,58,43,.06);border-color:rgba(166,58,43,.3)}
+.guanum{display:flex;flex-direction:column;gap:3px;align-items:center;margin-bottom:4px}
+.yao{display:block;width:30px;height:5px;background:var(--ink);border-radius:2px}
+.yao.yin{background:linear-gradient(90deg,var(--ink) 0 42%,transparent 42% 58%,var(--ink) 58% 100%)}
+.mid5{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--cinnabar);line-height:1.2}
+.xbig{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;line-height:1.3;color:var(--ink)}
+.xgname{font-family:'Noto Sans SC',sans-serif;font-size:10.5px;letter-spacing:2px;color:var(--ink2);font-weight:700}
+.xstar{font-family:'Noto Sans SC',sans-serif;font-size:9.5px;letter-spacing:1.5px;color:var(--muted)}
+#xPanel{max-width:560px;margin:18px auto 0;text-align:center;padding:0 16px}
+#xPanel h3{font-size:15.5px;letter-spacing:2px;font-weight:600}
+.xsym{font-style:normal;font-size:19px;color:var(--cinnabar);margin-left:6px}
+#xPanel .kj{font-size:13px;color:var(--cinnabar);letter-spacing:1px;margin-top:6px}
+#xPanel .meta{font-family:'Noto Sans SC',sans-serif;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:6px;line-height:2}
+#xPanel .plain{font-family:'Noto Sans SC',sans-serif;font-size:12px;color:var(--ink2);margin-top:8px;line-height:2.1}
+
+.xwrap{position:relative;max-width:300px;margin:16px auto 0}
+#xLines{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.flyline{stroke:var(--cinnabar);stroke-width:1.6;fill:none;opacity:.75;stroke-linecap:round}
+.xgrid2{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);height:300px;border:1.5px solid var(--hair)}
+.xgrid2>div{position:relative;border:.5px solid var(--hair);display:flex;align-items:center;justify-content:center}
+.xnum{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:var(--ink)}
+.xnum.pop{animation:pop .4s}
+@keyframes pop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
 </style>
 </head>
 <body>
@@ -116,6 +155,7 @@ footer .fine{display:block;font-size:10px;letter-spacing:1px;opacity:.75;margin-
       <button class="tab" data-v="vHetu">河图</button>
       <button class="tab" data-v="vLuo">洛书</button>
       <button class="tab" data-v="vPlay">排九宫</button>
+      <button class="tab" data-v="vXing">飞星</button>
     </div>
   </header>
 
@@ -185,6 +225,47 @@ footer .fine{display:block;font-size:10px;letter-spacing:1px;opacity:.75;margin-
       <div class="win" id="winLab">—— 洛书成 · 天下之数出于十五 ——</div>
       <div class="hint" id="playHint" style="margin-top:12px">先记住口诀：戴九履一，二四为肩</div>
     </div>
+  </section>
+
+  <!-- ============ 飞星 ============ -->
+  <section class="view" id="vXing">
+    <div class="card xintro">
+      <div class="en-cap">Nine Palaces · Flying Stars</div>
+      <h2 class="sec-big">洛书配八卦 · 九宫飞星</h2>
+      <p class="sub-lead">洛书为<b>体</b>，八卦为<b>用</b>。九个数各配一卦一方，各领一颗星 —— 这便是九宫飞星的骨架。所谓"飞星"，就是让数字沿着固定的轨迹在九宫里飞。</p>
+    </div>
+
+    <div class="card" style="padding:24px 10px 14px">
+      <div id="xGrid" class="xgrid"></div>
+      <div id="xPanel"></div>
+      <div class="fineprint">点任意一宫，看它的卦象与星曜 · 上南下北，与洛书同式</div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3 class="card-t">飞星演示 —— 谁入中，谁起飞</h3>
+      <p class="sub-lead">飞泊路线自古不变：中宫起步，先向西北，折向西，再折向东北、正南、正北、西南、正东，最后落在东南。选一颗星入中，看它沿洛书轨迹飞满九宫。</p>
+      <div class="chips" id="xCodes" style="justify-content:center"></div>
+      <div class="xwrap">
+        <svg id="xLines" viewBox="0 0 300 300" preserveAspectRatio="none"></svg>
+        <div id="xFill" class="xgrid2"></div>
+      </div>
+      <div class="play-actions">
+        <button class="btn" id="flyBtn">起飞 ✦</button>
+        <button class="btn ghost" id="xClear">清空</button>
+      </div>
+      <div id="xWin" class="winlab"></div>
+      <div class="fineprint">此为顺飞基础式 · 玄空飞星另有顺逆之分，此处取其骨架</div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3 class="card-t">现在 · 九运</h3>
+      <p class="sub-lead">三元九运，每二十年换一颗当令星。2024 — 2043 行<b>九运</b>，当令之星为<b>九紫离火</b> —— 离为火、为文明、为目。你现在正走在这段光阴里。</p>
+    </div>
+
+    <footer>
+      河图为体，洛书为用。<br>
+      <span class="fine">内容依据《易·说卦》与玄空通行图式 · 仅供传统文化学习参考</span>
+    </footer>
   </section>
 
   <footer>
@@ -347,6 +428,89 @@ $("#resetBtn").addEventListener("click",()=>{play=[4,9,2,3,5,7,8,1,6];picked=nul
   if(checkWin(false)){$("#winLab").classList.add("on");toast("神龟原本的排法 —— 条条十五")}
   $("#psum").querySelectorAll("b").forEach(b=>b.classList.add("ok"))});
 shufflePlay();
+
+/* ============ 飞星：洛书配八卦 ============ */
+const GUA={
+ 1:{g:"坎",sym:"☵",wx:"水",dir:"正北",star:"一白",sa:"劳乎坎",plain:"水藏于北，万物劳倦而归藏 —— 一白为贪狼，主智慧流动。",yao:[0,1,0]},
+ 2:{g:"坤",sym:"☷",wx:"土",dir:"西南",star:"二黑",sa:"致役乎坤",plain:"坤为地，致养万物 —— 二黑为巨门，主厚德承载。",yao:[0,0,0]},
+ 3:{g:"震",sym:"☳",wx:"木",dir:"正东",star:"三碧",sa:"帝出乎震",plain:"雷动于东，万物出乎震 —— 三碧为禄存，主奋发初起。",yao:[1,0,0]},
+ 4:{g:"巽",sym:"☴",wx:"木",dir:"东南",star:"四绿",sa:"齐乎巽",plain:"风行东南，万物整齐 —— 四绿为文昌，主文思学业。",yao:[0,1,1]},
+ 5:{g:"中",sym:"",wx:"土",dir:"中宫",star:"五黄",sa:"五黄居中，寄旺四隅",plain:"中五无卦，尊居中央，号曰都天 —— 至尊而至刚。",yao:null},
+ 6:{g:"乾",sym:"☰",wx:"金",dir:"西北",star:"六白",sa:"战乎乾",plain:"天行西北，阴阳相薄 —— 六白为武曲，主刚健权威。",yao:[1,1,1]},
+ 7:{g:"兑",sym:"☱",wx:"金",dir:"正西",star:"七赤",sa:"说言乎兑",plain:"泽在西，万物所说 —— 七赤为破军，主口舌音律。",yao:[1,1,0]},
+ 8:{g:"艮",sym:"☶",wx:"土",dir:"东北",star:"八白",sa:"成言乎艮",plain:"山止东北，万物之所成终始 —— 八白为左辅，主积成财富。",yao:[0,0,1]},
+ 9:{g:"离",sym:"☲",wx:"火",dir:"正南",star:"九紫",sa:"相见乎离",plain:"火明于南，圣人向明而治 —— 九紫为右弼，主文明喜庆。",yao:[1,0,1]}
+};
+const XPOS={5:4,6:8,7:5,8:6,9:1,1:7,2:2,3:3,4:0};   // 数字→洛书盘格index
+const ORDER=[5,6,7,8,9,1,2,3,4];
+
+function yaoHTML(y){return y?"<span class='yao'></span>":"<span class='yao yin'></span>"}
+(function buildXGrid(){
+  const grid=$("#xGrid");
+  [4,9,2,3,5,7,8,1,6].forEach((n,i)=>{
+    const g=GUA[n],el=document.createElement("div");
+    el.className="xcell"+(n===5?" center5":"");
+    el.innerHTML=(g.yao?`<div class="guanum">${g.yao.map(yaoHTML).join("")}</div>`:"<div class='guanum mid5'>五</div>")+
+      `<div class="xbig">${n}</div><div class="xgname">${g.g==="中"?"中宫":g.g}</div><div class="xstar">${g.star}</div>`;
+    el.addEventListener("click",()=>{
+      $("#xPanel").innerHTML=`<h3>${g.star} · ${g.g==="中"?"中宫":g.g}卦 <i class="xsym">${g.sym}</i></h3>
+        <div class="kj">「${g.sa}」</div>
+        <div class="meta">居${g.dir} · 五行${g.wx} · 洛书数为 ${n}</div>
+        <div class="plain">${g.plain}</div>`;
+      spark(el.getBoundingClientRect().left+el.offsetWidth/2,el.getBoundingClientRect().top+20,6);
+    });
+    grid.appendChild(el);
+  });
+  $("#xPanel").innerHTML=`<h3>九宫 · 各有所司</h3><div class="meta">一白坎北 · 二黑坤西南 · 三碧震东 · 四绿巽东南 · 五黄居中 · 六白乾西北 · 七赤兑西 · 八白艮东北 · 九紫离南</div>`;
+})();
+
+let xin=5;
+(function buildChips(){
+  const box=$("#xCodes");
+  ORDER.forEach(n=>{
+    const b=document.createElement("button");b.className="chip";b.textContent=GUA[n].star;
+    b.addEventListener("click",()=>{xin=n;box.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c===b));$("#xWin").textContent=""});
+    box.appendChild(b);
+  });
+  box.children[4].classList.add("on");  // 默认五黄
+})();
+function drawXLines(){
+  const svg=$("#xLines");svg.innerHTML="";
+  const cellW=300/3,center=i=>[(i%3)*cellW+cellW/2,Math.floor(i/3)*cellW+cellW/2];
+  for(let i=0;i<ORDER.length-1;i++){
+    const a=center(XPOS[ORDER[i]]),b=center(XPOS[ORDER[i+1]]);
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",a[0]);l.setAttribute("y1",a[1]);l.setAttribute("x2",b[0]);l.setAttribute("y2",b[1]);
+    l.setAttribute("class","flyline");l.style.strokeDasharray=260;l.style.strokeDashoffset=260;
+    l.style.transition=`stroke-dashoffset .28s ${i*0.34}s ease`;
+    svg.appendChild(l);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>l.style.strokeDashoffset=0));
+  }
+}
+function clearX(){
+  $("#xFill").querySelectorAll(".xnum").forEach(e=>e.textContent="");
+  $("#xLines").innerHTML="";$("#xWin").textContent="";
+}
+for(let i=0;i<9;i++)$("#xFill").appendChild(document.createElement("div"));
+$("#xClear").addEventListener("click",clearX);
+$("#flyBtn").addEventListener("click",()=>{
+  clearX();drawXLines();
+  const fill=$("#xFill");
+  ORDER.forEach((_,i)=>{
+    setTimeout(()=>{
+      const n=(xin-1+i)%9+1;   // 入中星沿轨迹递增
+      const cell=fill.children[XPOS[ORDER[i]]];
+      const s=document.createElement("div");s.className="xnum pop";
+      s.textContent=n;cell.appendChild(s);
+      if(i===0)toast(`${GUA[xin].star}入中 · 顺飞八宫`);
+    },i*340+120);
+  });
+  setTimeout(()=>{
+    $("#xWin").textContent=`${GUA[xin].star}入中，顺飞一周 —— 九宫各得其数`;
+    $("#xWin").classList.add("on");
+    spark(innerWidth/2,innerHeight*.5,16);
+  },ORDER.length*340+400);
+});
 </script>
 </body>
 </html>
